@@ -1,0 +1,27 @@
+{
+  "name": "desarrollo",
+  "version": "1.0.0",
+  "description": "API REST con Express y PostgreSQL",
+  "main": "src/server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "psql $DATABASE_URL -f ./sql/seed.sql"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "pg": "^8.22.0"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
+  }
+}
