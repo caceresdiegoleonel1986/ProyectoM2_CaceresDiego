@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import { validate } from '../middlewares/validate.js';
 import {
+  getComments,
   getCommentsByPost,
   createComment,
   updateComment,
@@ -9,6 +10,9 @@ import {
 } from '../controllers/commentsController.js';
 
 const router = Router();
+
+// Obtener todos los comentarios
+router.get('/', getComments);
 
 // Obtener comentarios de un post
 router.get('/post/:postId', getCommentsByPost);
