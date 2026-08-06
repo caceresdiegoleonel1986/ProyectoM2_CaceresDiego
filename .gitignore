@@ -1,5 +1,6 @@
 # Ignorar archivo de entorno
 .env
+.env.test
 
 # Ignorar dependencias
 node_modules/
