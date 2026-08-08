@@ -26,4 +26,6 @@ const pool = new pg.Pool({
   connectionTimeoutMillis: 2000,
 });
 
+// (Removed console.log to keep test output clean)
+
 export default pool;
