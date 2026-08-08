@@ -7,6 +7,9 @@ import commentsRouter from './src/routes/comments.js';
 
 // Importa el middleware de manejo de errores
 import { errorHandler } from './src/middlewares/errorHandler.js';
+import swaggerUi from 'swagger-ui-express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Inicializa la aplicación principal de Express
 const app = express();
@@ -18,6 +21,11 @@ app.use(express.json());
 app.use('/authors', authorsRouter);
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
+
+// Swagger UI - sirve la documentación en /api-docs
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+app.get('/swagger.json', (req, res) => res.sendFile(path.join(__dirname, 'openAPI', 'swagger.json')));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, { swaggerUrl: '/swagger.json' }));
 
 // Middleware global para manejar errores en toda la aplicación
 app.use(errorHandler);
