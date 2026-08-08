@@ -236,3 +236,26 @@ text
 Diego Caceres– Proyecto integrador Módulo 2 (SoyHenry).
 Uso de IA: apoyo en generación de ejemplos, servicios, controladores, rutas, tests y documentación.
 El código fue revisado y adaptado manualmente para asegurar coherencia y funcionalidad.
+
+---
+
+## 📚 Documentación Swagger
+
+-- Archivo OpenAPI (JSON): [openAPI/swagger.json](openAPI/swagger.json)
+-- UI interactiva (Swagger UI): `GET /api-docs` después de instalar dependencias y ejecutar la API.
+- Archivo OpenAPI (JSON): [openAPI/swagger.json](openAPI/swagger.json)
+- UI interactiva (Swagger UI): `GET /api-docs` después de instalar dependencias y ejecutar la API.
+
+Regenerar la especificación
+
+- Generador: `openAPI/generateSwagger.js` (genera `openAPI/swagger.json`).
+- NPM script: `npm run gen:openapi` — ejecuta el generador y pisa `openAPI/swagger.json`.
+
+Ejemplo:
+
+```bash
+npm install
+npm run gen:openapi   # regenera openAPI/swagger.json
+npm run dev
+# Abre http://localhost:3000/api-docs
+```

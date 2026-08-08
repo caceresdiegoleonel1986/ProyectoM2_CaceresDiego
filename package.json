@@ -11,7 +11,8 @@
     "dev": "node --watch src/server.js",
     "seed": "psql $DATABASE_URL -f ./sql/seed.sql",
     "test": "cross-env NODE_ENV=test node --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
-    "test:debug": "cross-env NODE_ENV=test node --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --verbose"
+    "test:debug": "cross-env NODE_ENV=test node --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --verbose",
+    "gen:openapi": "node openAPI/generateSwagger.js"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +22,8 @@
     "dotenv": "^16.6.1",
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
-    "pg": "^8.22.0"
+    "pg": "^8.22.0",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",
