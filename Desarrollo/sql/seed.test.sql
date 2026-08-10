@@ -1,0 +1,1 @@
+TRUNCATE TABLE comments, posts, authors RESTART IDENTITY CASCADE;
