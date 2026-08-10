@@ -18,6 +18,11 @@ const app = express();
 // Middleware para interpretar el cuerpo de las solicitudes en formato JSON
 app.use(express.json());
 
+//  habilita CORS (puede ser abierto o restringido)
+app.use(cors()); 
+// Si querés limitarlo solo a tu frontend:
+// app.use(cors({ origin: "http://localhost:5173" }));
+
 // Registro de las rutas principales con sus respectivos prefijos
 app.use('/authors', authorsRouter);
 app.use('/posts', postsRouter);
