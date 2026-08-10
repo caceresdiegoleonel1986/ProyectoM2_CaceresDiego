@@ -7,14 +7,14 @@
   },
   "servers": [
     {
-      "url": "https://miniblog-production.up.railway.app",
-      "description": "Servidor de producción (ejemplo)"
-    },
-    {
-      "url": "http://localhost:3000",
-      "description": "Servidor local (ejemplo)"
-    }
-  ],
+    "url": "https://proyectom2caceresdiego-production-74e9.up.railway.app",
+    "description": "Servidor de producción"
+  },
+  {
+    "url": "http://localhost:3000",
+    "description": "Servidor local"
+  }
+],
   "paths": {
     "/authors": {
       "get": {
