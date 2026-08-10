@@ -1,5 +1,5 @@
 import express from 'express';
-import pool from './db/index.js'; //  importa tu pool
+import pool from './db/index.js'; // importa tu pool
 
 // Importa los routers que manejan las rutas específicas de cada recurso
 import authorsRouter from './src/routes/authors.js';
@@ -26,9 +26,18 @@ app.use('/comments', commentsRouter);
 // Endpoint de salud para probar la conexión a la DB
 app.get('/health', async (req, res) => {
   try {
+    // Loguea la configuración actual del pool
+    console.log("DB Config:", {
+      host: pool.options.host,
+      user: pool.options.user,
+      database: pool.options.database,
+      port: pool.options.port,
+    });
+
     await pool.query('SELECT 1');
     res.json({ status: 'ok', db: 'connected' });
   } catch (error) {
+    console.error("Error de conexión:", error.message);
     res.status(500).json({ status: 'error', db: 'not connected', error: error.message });
   }
 });
