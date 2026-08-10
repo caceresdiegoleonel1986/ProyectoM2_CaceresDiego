@@ -1,5 +1,5 @@
 import express from 'express';
-import pool from './db/index.js'; // 👈 importa tu pool
+import pool from './db/index.js'; //  importa tu pool
 
 // Importa los routers que manejan las rutas específicas de cada recurso
 import authorsRouter from './src/routes/authors.js';
@@ -42,4 +42,4 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, { swaggerUrl: '/swag
 app.use(errorHandler);
 
 // Exporta la aplicación para que pueda ser utilizada en server.js
-export default 
+export default app;
