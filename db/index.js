@@ -12,7 +12,7 @@ const envFilePath = path.resolve(
   process.env.NODE_ENV === "test" ? "../.env.test" : "../.env"
 );
 
-// ⚡ Solo carga dotenv si NO estás en producción (Railway no lo necesita)
+// ⚡ Solo carga dotenv si NO estás en producción (Railway ya inyecta las variables)
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: envFilePath });
   console.log(`Cargando variables de entorno desde: ${envFilePath}`);
@@ -20,12 +20,13 @@ if (process.env.NODE_ENV !== "production") {
 
 const { Pool } = pg;
 
+// Usa PG* en Railway y DB_* en local
 const pool = new Pool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT || 5432,
+  host: process.env.PGHOST || process.env.DB_HOST,
+  user: process.env.PGUSER || process.env.DB_USER,
+  password: process.env.PGPASSWORD || process.env.DB_PASSWORD,
+  database: process.env.PGDATABASE || process.env.DB_NAME,
+  port: process.env.PGPORT || process.env.DB_PORT || 5432,
   client_encoding: "UTF8",
   max: Number(process.env.DB_MAX) || 20,
   idleTimeoutMillis: Number(process.env.DB_IDLE_TIMEOUT) || 30000,
