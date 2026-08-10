@@ -7,6 +7,10 @@
   },
   "servers": [
     {
+      "url": "https://miniblog-production.up.railway.app",
+      "description": "Servidor de producción (ejemplo)"
+    },
+    {
       "url": "http://localhost:3000",
       "description": "Servidor local (ejemplo)"
     }
