@@ -12,20 +12,24 @@ const envFilePath = path.resolve(
   process.env.NODE_ENV === "test" ? "../.env.test" : "../.env"
 );
 
-dotenv.config({ path: envFilePath });
+// ⚡ Solo carga dotenv si NO estás en producción (Railway no lo necesita)
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config({ path: envFilePath });
+  console.log(`Cargando variables de entorno desde: ${envFilePath}`);
+}
 
-const pool = new pg.Pool({
+const { Pool } = pg;
+
+const pool = new Pool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: process.env.DB_PORT || 5432,
   client_encoding: "UTF8",
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+  max: Number(process.env.DB_MAX) || 20,
+  idleTimeoutMillis: Number(process.env.DB_IDLE_TIMEOUT) || 30000,
+  connectionTimeoutMillis: Number(process.env.DB_CONNECTION_TIMEOUT) || 2000,
 });
-
-// (Removed console.log to keep test output clean)
 
 export default pool;
