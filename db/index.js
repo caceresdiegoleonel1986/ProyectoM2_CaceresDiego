@@ -20,7 +20,7 @@ if (process.env.NODE_ENV !== "production") {
 
 const { Pool } = pg;
 
-// Usa PG* en Railway y DB_* en local
+// Configuración del pool: soporta PG*, POSTGRES_* y DB_* para local
 const pool = new Pool({
   host: process.env.PGHOST || process.env.DB_HOST,
   user: process.env.PGUSER || process.env.POSTGRES_USER || process.env.DB_USER,
@@ -31,6 +31,14 @@ const pool = new Pool({
   max: Number(process.env.DB_MAX) || 20,
   idleTimeoutMillis: Number(process.env.DB_IDLE_TIMEOUT) || 30000,
   connectionTimeoutMillis: Number(process.env.DB_CONNECTION_TIMEOUT) || 2000,
+});
+
+// 👀 Log de debug para Railway: vas a ver esto en los logs cuando llames a /health
+console.log("Pool Config:", {
+  host: pool.options.host,
+  user: pool.options.user,
+  database: pool.options.database,
+  port: pool.options.port,
 });
 
 export default pool;
