@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import pool from './db/index.js'; // importa tu pool
 
 // Importa los routers que manejan las rutas específicas de cada recurso
