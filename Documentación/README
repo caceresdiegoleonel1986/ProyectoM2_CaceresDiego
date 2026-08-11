@@ -1,0 +1,94 @@
+# MiniBlog API – Documentación
+
+## 📌 Descripción del proyecto
+MiniBlog es una API REST para gestionar autores, publicaciones y comentarios.  
+Construida con **Node.js**, **Express** y **PostgreSQL**, forma parte del proyecto integrador del Módulo 2 (SoyHenry).
+
+---
+
+## ⚙️ Requisitos
+- Node.js >= 18
+- PostgreSQL >= 14
+- Railway (para deployment)
+
+---
+
+## 🚀 Pasos para ejecutar local
+1. Clonar el repositorio:
+   ```bash
+   git clone <URL_DEL_REPO>
+   cd MiniBlog/Desarrollo
+Instalar dependencias:
+
+bash
+npm install
+Configurar variables de entorno en .env (ver .env.example).
+
+Ejecutar scripts SQL:
+
+bash
+psql -U postgres -d miniblog -f sql/setup.sql
+psql -U postgres -d miniblog -f sql/seed.sql
+Iniciar servidor:
+
+bash
+npm start
+🧪 Tests
+Ejecutar pruebas unitarias con:
+
+bash
+npm test
+📖 Documentación OpenAPI
+El archivo openapi.json (o .yaml) describe todos los endpoints.
+Podés visualizarlo con Swagger UI o importarlo en Postman.
+
+Ejemplo con swagger-ui-express:
+
+js
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './openapi.json' assert { type: "json" };
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+Luego acceder a:
+
+Código
+http://localhost:3000/docs
+🌐 Deployment en Railway
+Crear proyecto en Railway desde el repositorio GitHub.
+
+Agregar plugin PostgreSQL.
+
+Configurar variables de entorno:
+
+PORT
+
+DB_HOST
+
+DB_USER
+
+DB_PASSWORD
+
+DB_NAME
+
+Ejecutar scripts SQL (setup.sql y seed.sql).
+
+Railway asigna:
+
+Internal URL: https://miniblog.up.railway.internal
+
+Public URL: https://miniblog.up.railway.app
+
+Verificar endpoints con Postman o curl.
+
+🤖 Uso de IA en el proyecto
+Durante el desarrollo se utilizaron herramientas de IA como apoyo para:
+
+Generar ejemplos de estructura de carpetas.
+
+Redactar servicios, controladores y rutas con sintaxis ES Modules.
+
+Crear tests básicos con Supertest.
+
+Redactar documentación OpenAPI y README.
+
+El código fue revisado y adaptado manualmente para asegurar coherencia y funcionalidad.
