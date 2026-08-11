@@ -1,13 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import pool from './db/index.js'; // importa tu pool
+import pool from './db/index.js';
 
-// Importa los routers que manejan las rutas específicas de cada recurso
 import authorsRouter from './src/routes/authors.js';
 import postsRouter from './src/routes/posts.js';
 import commentsRouter from './src/routes/comments.js';
 
-// Importa el middleware de manejo de errores
 import { errorHandler } from './src/middlewares/errorHandler.js';
 import swaggerUi from 'swagger-ui-express';
 import path from 'path';
