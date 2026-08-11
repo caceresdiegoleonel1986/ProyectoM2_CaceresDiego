@@ -5,5 +5,5 @@ const PORT = process.env.PORT || 3000;
 
 // Inicia el servidor Express en el puerto definido
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
+  console.log(`Servidor corriendo en puerto ${PORT} (env: ${process.env.PORT})`);
 });
