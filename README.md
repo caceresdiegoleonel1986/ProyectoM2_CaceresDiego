@@ -1,42 +1,56 @@
 # MiniBlog
 
-MiniBlog es un proyecto backend desarrollado con Node.js, Express y PostgreSQL para gestionar autores, posts y comentarios mediante una API REST.  
-El objetivo principal fue construir una solución simple, organizada y funcional, con pruebas automatizadas y documentación interactiva.
+MiniBlog es un proyecto backend desarrollado con Node.js, Express y PostgreSQL para gestionar autores, posts y comentarios mediante una API REST.
 
 ## ✨ Sobre el proyecto
 
-Este proyecto forma parte del trabajo integrador del módulo 2 de SoyHenry.  
-Está pensado como una API básica pero bien estructurada, que demuestra buenas prácticas en desarrollo backend, separación de responsabilidades y manejo de errores.
+Este proyecto forma parte del trabajo integrador del módulo 2 de SoyHenry. Está pensado como una API básica, organizada y funcional, con pruebas automatizadas y documentación interactiva.
 
-## 🚀 Funcionalidades
+## 🚀 Funcionalidades principales
 
 - CRUD de autores, posts y comentarios
 - Validaciones básicas de entrada
 - Respuestas HTTP claras y consistentes
-- Pruebas automatizadas con Jest y Supertest
-- Documentación interactiva con Swagger / OpenAPI
+- Tests automatizados con Jest y Supertest
+- Documentación OpenAPI/Swagger
 - Preparado para despliegue en Railway
 
 ## 📁 Estructura del repositorio
 
-- **Desarrollo/** → aplicación principal del backend (código, SQL, tests, OpenAPI, guía técnica)
-- **Documentación/** → documentación general y despliegue
+```text
+MiniBlog/
+├── README.md
+├── Desarrollo/
+│   ├── app.js
+│   ├── server.js
+│   ├── package.json
+│   ├── .env.example
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── middlewares/
+│   │   ├── routes/
+│   │   └── services/
+│   ├── db/
+│   ├── sql/
+│   ├── tests/
+│   └── openAPI/
+└── Documentación/
+    └── README.md
+```
 
-## 🛠️ Tecnologías utilizadas
+- **Desarrollo/** → código fuente principal, configuración, tests, scripts SQL y documentación técnica
+- **Documentación/** → información general y recursos adicionales del proyecto
+
+## 🛠️ Tecnologías
 
 Node.js · Express · PostgreSQL · Jest · Supertest · Swagger/OpenAPI
 
-## ▶️ Ejecución
+## ▶️ Guía rápida
 
-Para instalación y ejecución detallada, ver [`Desarrollo/README.md`](./Desarrollo/README.md).
-
-## 🌐 Despliegue
-
-El proyecto está preparado para Railway con PostgreSQL.  
-Documentación desplegada:  
-https://proyectom2caceresdiego-production-74e9.up.railway.app/api-docs/
+- Para instalar y ejecutar la API, ver [Desarrollo/README.md](./Desarrollo/README.md)
+- Para ver la documentación desplegada, visitar: https://proyectom2caceresdiego-production-74e9.up.railway.app/api-docs/
 
 ## ✨ Autor
 
-Diego Cáceres  
+Diego Cáceres
 Proyecto integrador del Módulo 2 – SoyHenry
