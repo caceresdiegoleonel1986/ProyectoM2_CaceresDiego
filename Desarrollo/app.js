@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import pool from './db/index.js';
 
 import authorsRouter from './src/routes/authors.js';
 import postsRouter from './src/routes/posts.js';
@@ -17,10 +16,25 @@ const app = express();
 // Middleware para interpretar el cuerpo de las solicitudes en formato JSON
 app.use(express.json());
 
-//  habilita CORS (puede ser abierto o restringido)
-app.use(cors()); 
-// Si querés limitarlo solo a tu frontend:
-// app.use(cors({ origin: "http://localhost:5173" }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://proyectom2caceresdiego-production-74e9.up.railway.app'
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error('No permitido por CORS'));
+    },
+    credentials: true
+  })
+);
 
 // Registro de las rutas principales con sus respectivos prefijos
 app.use('/authors', authorsRouter);
