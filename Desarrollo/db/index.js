@@ -15,7 +15,9 @@ const envFilePath = path.resolve(
 // ⚡ Solo carga dotenv si NO estás en producción (Railway ya inyecta las variables)
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: envFilePath });
-  console.log(`Cargando variables de entorno desde: ${envFilePath}`);
+  if (process.env.DEBUG === "true") {
+    console.log(`Cargando variables de entorno desde: ${envFilePath}`);
+  }
 }
 
 const { Pool } = pg;
@@ -33,12 +35,14 @@ const pool = new Pool({
   connectionTimeoutMillis: Number(process.env.DB_CONNECTION_TIMEOUT) || 2000,
 });
 
-// 👀 Log de debug para Railway: vas a ver esto en los logs cuando llames a /health
-console.log("Pool Config:", {
-  host: pool.options.host,
-  user: pool.options.user,
-  database: pool.options.database,
-  port: pool.options.port,
-});
+// Log de debug para Railway: vas a ver esto en los logs cuando llames a /health
+if (process.env.DEBUG === "true") {
+  console.log("Pool Config:", {
+    host: pool.options.host,
+    user: pool.options.user,
+    database: pool.options.database,
+    port: pool.options.port,
+  });
+}
 
 export default pool;
