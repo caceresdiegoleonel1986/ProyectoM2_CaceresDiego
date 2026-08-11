@@ -2,7 +2,7 @@
   "name": "desarrollo",
   "version": "1.0.0",
   "description": "API REST con Express y PostgreSQL",
-  "main": "src/server.js",
+  "main": "server.js",
   "directories": {
     "test": "tests"
   },
