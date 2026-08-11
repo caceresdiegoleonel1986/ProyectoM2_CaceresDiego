@@ -48,6 +48,9 @@ app.get('/health', async (req, res) => {
       });
     }
 
+    // Delay opcional de 500ms para dar tiempo a la DB
+    await new Promise(resolve => setTimeout(resolve, 500));
+
     await pool.query('SELECT 1');
     res.json({ status: 'ok', db: 'connected' });
   } catch (error) {
