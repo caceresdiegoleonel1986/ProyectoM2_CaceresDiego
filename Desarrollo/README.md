@@ -1,23 +1,10 @@
 # MiniBlog API
 
-API REST construida con Node.js, Express y PostgreSQL para gestionar autores, posts y comentarios. Este proyecto forma parte del trabajo integrador del Módulo 2 de SoyHenry y cuenta con tests automatizados usando Jest y Supertest.
+API REST construida con Node.js, Express y PostgreSQL para gestionar autores, posts y comentarios. Esta guía técnica cubre la instalación, configuración y uso del backend.
 
 ---
 
-## 🚀 Funcionalidades
-
-- CRUD de autores.
-- CRUD de posts.
-- CRUD de comentarios asociados a posts y autores.
-- Validaciones básicas de entrada.
-- Respuestas HTTP coherentes para operaciones exitosas y errores.
-- Tests unitarios e integraciones.
-- Documentación OpenAPI disponible en la app.
-- Preparado para despliegue en Railway.
-
----
-
-## 🛠️ Tecnologías
+## 🛠️ Tecnologías utilizadas
 
 - Node.js
 - Express
@@ -50,7 +37,10 @@ DB_NAME=miniblog
 DB_PORT=5432
 PORT=3000
 NODE_ENV=development
+DEBUG=false
 ```
+
+> Para controlar los logs de depuración, usa `DEBUG=true` cuando quieras ver mensajes adicionales en consola y `DEBUG=false` para evitar que se impriman los `console.log` innecesarios.
 
 Para tests, crea un archivo .env.test con las credenciales de la base de datos de pruebas:
 
@@ -62,6 +52,7 @@ DB_NAME=miniblog_test
 DB_PORT=5432
 PORT=4000
 NODE_ENV=test
+DEBUG=false
 ```
 
 > No subas archivos .env ni .env.test al repositorio.
