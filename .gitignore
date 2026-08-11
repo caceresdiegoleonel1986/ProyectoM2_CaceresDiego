@@ -1,6 +1,13 @@
-# Ignorar archivo de entorno
+# Ignorar archivos de entorno
 .env
 .env.test
 
 # Ignorar dependencias
 node_modules/
+
+# Ignorar logs
+*.log
+
+# Ignorar dumps de base de datos
+*.sql
+*.dump
