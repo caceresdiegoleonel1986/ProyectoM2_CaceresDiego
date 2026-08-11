@@ -9,5 +9,18 @@
     "test": "npm --prefix Desarrollo run test",
     "test:debug": "npm --prefix Desarrollo run test:debug",
     "gen:openapi": "npm --prefix Desarrollo run gen:openapi"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "pg": "^8.22.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
   }
 }
