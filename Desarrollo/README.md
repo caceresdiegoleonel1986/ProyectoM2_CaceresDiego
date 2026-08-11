@@ -1,261 +1,206 @@
 # MiniBlog API
 
-API REST construida con **Node.js + Express** y **PostgreSQL** para gestionar autores, posts y comentarios.  
-Forma parte del proyecto integrador del Módulo 2 (SoyHenry).  
-Incluye tests unitarios e integraciones con **Jest** y **Supertest**.
+API REST construida con Node.js, Express y PostgreSQL para gestionar autores, posts y comentarios. Este proyecto forma parte del trabajo integrador del Módulo 2 de SoyHenry y cuenta con tests automatizados usando Jest y Supertest.
 
 ---
 
 ## 🚀 Funcionalidades
 
-- CRUD de **Authors** (usuarios).
-- CRUD de **Posts** (publicaciones).
-- CRUD de **Comments** (comentarios asociados a posts y autores).
-- Validaciones básicas (campos obligatorios, email único).
-- Respuestas HTTP coherentes (200, 201, 204, 400, 404, 500).
-- Tests automatizados con **Jest + Supertest**.
-- Documentación en **OpenAPI (JSON)**.
-- Preparado para deploy en **Railway**.
+- CRUD de autores.
+- CRUD de posts.
+- CRUD de comentarios asociados a posts y autores.
+- Validaciones básicas de entrada.
+- Respuestas HTTP coherentes para operaciones exitosas y errores.
+- Tests unitarios e integraciones.
+- Documentación OpenAPI disponible en la app.
+- Preparado para despliegue en Railway.
+
+---
+
+## 🛠️ Tecnologías
+
+- Node.js
+- Express
+- PostgreSQL
+- pg
+- Jest
+- Supertest
+- Swagger UI
+- dotenv
 
 ---
 
 ## ⚙️ Requisitos
 
-- Node.js v18+ (se recomienda v20 o superior).
+- Node.js 18 o superior.
 - PostgreSQL instalado y corriendo localmente.
-- Railway (para deploy).
+- Cliente de PostgreSQL para ejecutar los scripts SQL.
 
 ---
 
 ## 📄 Variables de entorno
 
-Crea un archivo `.env` en la raíz del proyecto basado en `.env.example`:
+Crea un archivo .env en la raíz del proyecto copiando la estructura de .env.example.
 
 ```env
-DATABASE_URL=postgresql://usuario:contraseña@localhost:5432/miniblog
+DB_HOST=localhost
+DB_USER=postgres
+DB_PASSWORD=1234
+DB_NAME=miniblog
+DB_PORT=5432
 PORT=3000
+NODE_ENV=development
+```
 
-Para los tests, también crea un archivo .env.test con credenciales específicas para la base de datos de pruebas:
+Para tests, crea un archivo .env.test con las credenciales de la base de datos de pruebas:
 
-env
-DATABASE_URL=postgresql://usuario:contraseña@localhost:5432/miniblog_test
+```env
+DB_HOST=localhost
+DB_USER=postgres
+DB_PASSWORD=1234
+DB_NAME=miniblog_test
+DB_PORT=5432
 PORT=4000
-⚠️ Nunca subir .env a GitHub. Solo .env.example.
+NODE_ENV=test
+```
 
-🛠️ Instalación y ejecución local
-Clonar el repositorio:
+> No subas archivos .env ni .env.test al repositorio.
 
-bash
-git clone https://github.com/tuusuario/miniblog-api.git
-cd miniblog-api
-Instalar dependencias:
+---
 
-bash
+## ▶️ Instalación y ejecución local
+
+1. Clona el repositorio:
+
+```bash
+git clone <url-del-repo>
+cd MiniBlog/Desarrollo
+```
+
+2. Instala las dependencias:
+
+```bash
 npm install
-Crear la base de datos y tablas:
+```
 
-bash
+3. Crea la base de datos y las tablas:
+
+```bash
 psql -U postgres -d miniblog -f ./sql/setup.sql
-Insertar datos iniciales:
+```
 
-bash
+4. Inserta datos iniciales:
+
+```bash
 psql -U postgres -d miniblog -f ./sql/seed.sql
-Ejecutar en modo desarrollo:
+```
 
-bash
+5. Ejecuta la API en modo desarrollo:
+
+```bash
 npm run dev
-API disponible en:
+```
+
+La API quedará disponible en:
+
+```text
 http://localhost:3000
+```
 
-🧪 Tests
-Ejecutar todos los tests:
+También puedes verificar la conexión a la base de datos en:
 
-bash
-npm test -- --verbose
-Ejecutar en modo debug para detectar fugas de recursos:
+```text
+http://localhost:3000/health
+```
 
-bash
+---
+
+## 🧪 Tests
+
+Ejecuta todos los tests:
+
+```bash
+npm test
+```
+
+Ejecuta los tests en modo verbose para depurar problemas de recursos:
+
+```bash
 npm run test:debug
-✅ Todos los tests unitarios e integraciones pasan en verde (40 en total).
+```
 
-📖 Documentación OpenAPI
-El archivo openapi.json describe todos los endpoints.
-Puedes visualizarlo con Swagger UI o importarlo en Postman.
+---
 
-Ejemplo con swagger-ui-express:
+## 📖 Documentación OpenAPI
 
-js
-import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './openapi.json' assert { type: "json" };
+La documentación Swagger queda disponible en:
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-Luego acceder a:
-http://localhost:3000/docs
+```text
+http://localhost:3000/api-docs
+```
 
-🚀 Deploy en Railway
-Crear proyecto en Railway y conectar con tu repo de GitHub.
+Además, el archivo JSON generado se sirve en:
 
-Añadir variable de entorno DATABASE_URL en Railway.
+```text
+http://localhost:3000/swagger.json
+```
 
-Railway detecta Node.js y hace el deploy automáticamente.
+Si querés regenerar la documentación:
 
-La API quedará disponible en una URL pública, por ejemplo:
-https://miniblog-production.up.railway.app
+```bash
+npm run gen:openapi
+```
 
-📌 Ejemplos de Endpoints
-Autores
-bash
+---
+
+## 🔗 Endpoints principales
+
+### Autores
+
+```bash
 # Crear autor
 curl -X POST http://localhost:3000/authors \
   -H "Content-Type: application/json" \
   -d '{"name":"Juan Pérez","email":"juan@example.com","bio":"Bio de Juan"}'
 
-# Listar autores
+# Obtener autores
 curl http://localhost:3000/authors
+```
 
-# Obtener autor por ID
-curl http://localhost:3000/authors/1
-Posts
-bash
+### Posts
+
+```bash
 # Crear post
 curl -X POST http://localhost:3000/posts \
   -H "Content-Type: application/json" \
-  -d '{"title":"Mi primer post","content":"Contenido del post","author_id":1,"published":true}'
+  -d '{"title":"Mi primer post","content":"Contenido","author_id":1,"published":true}'
+```
 
-# Actualizar post
-curl -X PUT http://localhost:3000/posts/1 \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Post actualizado","content":"Nuevo contenido"}'
+### Comentarios
 
-# Listar posts
-curl http://localhost:3000/posts
-Comentarios
-bash
+```bash
 # Crear comentario
 curl -X POST http://localhost:3000/comments \
   -H "Content-Type: application/json" \
   -d '{"post_id":1,"author_id":1,"content":"Buen post!"}'
-
-# Listar comentarios de un post
-curl http://localhost:3000/comments/post/1
-
-# Actualizar comentario
-curl -X PUT http://localhost:3000/comments/1 \
-  -H "Content-Type: application/json" \
-  -d '{"content":"Comentario editado"}'
-
-🧩 Uso con Thunder Client / Postman
-Abrir Thunder Client (VSCode) o Postman.
-
-Crear una colección llamada MiniBlog API.
-
-Agregar requests:
-
-POST /authors → body JSON con name, email, bio.
-
-POST /posts → body JSON con title, content, author_id, published.
-
-POST /comments → body JSON con post_id, author_id, content.
-
-Probar el flujo completo:
-Crear autor → Crear post → Crear comentario → Listar → Actualizar → Borrar.
-
-📊 Diagrama de relaciones
-text
-┌─────────────┐        ┌─────────────┐        ┌───────────────┐
-│   Authors   │ 1    n │    Posts    │ 1    n │   Comments    │
-│─────────────│--------│─────────────│--------│───────────────│
-│ id (PK)     │        │ id (PK)     │        │ id (PK)       │
-│ name        │        │ title       │        │ content       │
-│ email       │        │ content     │        │ post_id (FK)  │
-│ bio         │        │ author_id(FK)│       │ author_id (FK)│
-└─────────────┘        │ published   │        │ created_at    │
-                       │ created_at  │        └───────────────┘
-                       └─────────────┘
-
-🔄 Flujo de un request típico (POST /comments)
-text
-Cliente (curl / Thunder Client / Postman)
-        │
-        ▼
-Express Router (commentsRoutes.js)
-        │
-        ▼
-Controller (commentsController.js)
-  - Valida datos de entrada
-  - Llama al servicio correspondiente
-        │
-        ▼
-Service (commentsService.js)
-  - Construye la query SQL
-  - Interactúa con el pool de PostgreSQL
-        │
-        ▼
-Base de Datos (PostgreSQL)
-  - Inserta el nuevo comentario en la tabla "comments"
-        │
-        ▼
-Service → Controller → Router
-  - Devuelve el objeto creado con su `id`
-        │
-        ▼
-Cliente
-  - Recibe respuesta JSON con el comentario creado
-
-🏗️ Arquitectura general
-text
-┌───────────────┐
-│   Cliente      │
-│ (curl, Postman,│
-│ Thunder Client)│
-└───────▲───────┘
-        │ HTTP Requests (REST)
-        ▼
-┌─────────────────────┐
-│   Express API        │
-│  (MiniBlog Backend)  │
-│─────────────────────│
-│ Routers (authors,    │
-│ posts, comments)     │
-│ Controllers          │
-│ Services             │
-│ Middlewares          │
-└─────────▲───────────┘
-          │ SQL Queries
-          ▼
-┌─────────────────────┐
-│ PostgreSQL Database │
-│─────────────────────│
-│ Tables:             │
-│ - authors           │
-│ - posts             │
-│ - comments          │
-└─────────────────────┘
-
-✨ Autor
-Diego Caceres– Proyecto integrador Módulo 2 (SoyHenry).
-Uso de IA: apoyo en generación de ejemplos, servicios, controladores, rutas, tests y documentación.
-El código fue revisado y adaptado manualmente para asegurar coherencia y funcionalidad.
+```
 
 ---
 
-## 📚 Documentación Swagger
+## 🗄️ Estructura de la base de datos
 
--- Archivo OpenAPI (JSON): [openAPI/swagger.json](openAPI/swagger.json)
--- UI interactiva (Swagger UI): `GET /api-docs` después de instalar dependencias y ejecutar la API.
-- Archivo OpenAPI (JSON): [openAPI/swagger.json](openAPI/swagger.json)
-- UI interactiva (Swagger UI): `GET /api-docs` después de instalar dependencias y ejecutar la API.
-
-Regenerar la especificación
-
-- Generador: `openAPI/generateSwagger.js` (genera `openAPI/swagger.json`).
-- NPM script: `npm run gen:openapi` — ejecuta el generador y pisa `openAPI/swagger.json`.
-
-Ejemplo:
-
-```bash
-npm install
-npm run gen:openapi   # regenera openAPI/swagger.json
-npm run dev
-# Abre http://localhost:3000/api-docs
+```text
+Authors 1---n Posts 1---n Comments
 ```
+
+- Authors: id, name, email, bio, created_at
+- Posts: id, title, content, author_id, published, created_at
+- Comments: id, post_id, author_id, content, created_at
+
+---
+
+## ✨ Autor
+
+Diego Cáceres — Proyecto integrador del Módulo 2 de SoyHenry.
+
+Este README fue ajustado para reflejar mejor la estructura real del proyecto, los scripts disponibles y los endpoints actuales.
