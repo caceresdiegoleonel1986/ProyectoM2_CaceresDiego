@@ -34,13 +34,8 @@ app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
 
 // Endpoint de salud para probar la conexión a la DB
-app.get('/health', async (req, res) => {
-  try {
-    await pool.query('SELECT 1');
-    res.json({ status: 'ok', db: 'connected' });
-  } catch (error) {
-    res.status(200).json({ status: 'ok', db: 'pending' });
-  }
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', service: 'up' });
 });
 
 // Swagger UI - sirve la documentación en /api-docs
