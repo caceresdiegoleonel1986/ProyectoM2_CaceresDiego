@@ -187,7 +187,34 @@ curl -X POST http://localhost:3000/comments \
 
 ---
 
-## 🗄️ Estructura de la base de datos
+## � Despliegue en Railway
+
+Este proyecto puede desplegarse en Railway de forma sencilla.
+
+### Enlace del proyecto desplegado
+- Documentación Swagger: https://proyectom2caceresdiego-production-74e9.up.railway.app/api-docs/
+
+### Pasos básicos
+1. Crear una cuenta en Railway.
+2. Crear un nuevo proyecto.
+3. Conectar el repositorio de GitHub.
+4. Agregar una base de datos PostgreSQL dentro de Railway.
+5. Configurar las variables de entorno necesarias para el despliegue:
+   - DATABASE_URL
+   - PGHOST
+   - PGPORT
+   - POSTGRES_DB
+   - POSTGRES_PASSWORD
+   - POSTGRES_USER
+
+> Las variables como DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT y NODE_ENV se usaron principalmente durante el desarrollo local y para testing, mientras que en Railway se utilizaron las variables anteriores para conectar la base de datos PostgreSQL provisionada en la misma plataforma.
+
+### Link oficial
+- Railway: https://railway.app/
+
+---
+
+## �🗄️ Estructura de la base de datos
 
 ```text
 Authors 1---n Posts 1---n Comments
