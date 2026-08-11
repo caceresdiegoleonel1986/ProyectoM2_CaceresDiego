@@ -25,10 +25,9 @@ const { Pool } = pg;
 let pool;
 
 if (process.env.NODE_ENV === "production" && process.env.DATABASE_URL) {
-  //  Railway: usa directamente DATABASE_URL
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }, // importante para Railway/Postgres en la nube
+    ssl: { rejectUnauthorized: false },
   });
 } else {
   //  Desarrollo/Test: usa variables locales
