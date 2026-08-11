@@ -22,12 +22,6 @@ app.use(cors());
 // Si querés limitarlo solo a tu frontend:
 // app.use(cors({ origin: "http://localhost:5173" }));
 
-// fuerza las respuestas en UTF-8
-app.use((req, res, next) => {
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
-  next();
-});
-
 // Registro de las rutas principales con sus respectivos prefijos
 app.use('/authors', authorsRouter);
 app.use('/posts', postsRouter);
