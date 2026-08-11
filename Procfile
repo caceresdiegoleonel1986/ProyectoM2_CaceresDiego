@@ -1,1 +1,1 @@
-web: npm start --prefix Desarrollo
+web: npm start
