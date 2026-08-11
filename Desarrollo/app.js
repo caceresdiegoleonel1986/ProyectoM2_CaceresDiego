@@ -38,13 +38,15 @@ app.use('/comments', commentsRouter);
 // Endpoint de salud para probar la conexión a la DB
 app.get('/health', async (req, res) => {
   try {
-    // Loguea la configuración actual del pool
-    console.log("DB Config:", {
-      host: pool.options.host,
-      user: pool.options.user,
-      database: pool.options.database,
-      port: pool.options.port,
-    });
+    // Loguea la configuración actual del pool solo si DEBUG está activo
+    if (process.env.DEBUG === "true") {
+      console.log("DB Config:", {
+        host: pool.options.host,
+        user: pool.options.user,
+        database: pool.options.database,
+        port: pool.options.port,
+      });
+    }
 
     await pool.query('SELECT 1');
     res.json({ status: 'ok', db: 'connected' });
