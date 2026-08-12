@@ -10,17 +10,18 @@ import swaggerUi from 'swagger-ui-express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Inicializa la aplicación principal de Express
 const app = express();
 
-// Middleware para interpretar el cuerpo de las solicitudes en formato JSON
 app.use(express.json());
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:3000',
-  'https://proyectom2caceresdiego-production-74e9.up.railway.app'
-];
+app.use(cors()); // Habilita CORS para todas las rutas y orígenes
+
+// Configuración de CORS con lista de orígenes permitidos
+// const allowedOrigins = [
+//  'http://localhost:5173',
+//  'http://localhost:3000',
+//  'https://proyectom2caceresdiego-production-74e9.up.railway.app'
+//];
 
 app.use(
   cors({
@@ -29,30 +30,31 @@ app.use(
         callback(null, true);
         return;
       }
-
       callback(new Error('No permitido por CORS'));
     },
     credentials: true
   })
 );
 
-// Registro de las rutas principales con sus respectivos prefijos
 app.use('/authors', authorsRouter);
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
 
-// Endpoint de salud para probar la conexión a la DB
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', service: 'up' });
 });
 
-// Swagger UI - sirve la documentación en /api-docs
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-app.get('/swagger.json', (req, res) => res.sendFile(path.join(__dirname, 'openAPI', 'swagger.json')));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, { swaggerUrl: '/swagger.json' }));
+app.get('/swagger.json', (req, res) =>
+  res.sendFile(path.join(__dirname, 'openAPI', 'swagger.json'))
+);
 
-// Middleware global para manejar errores en toda la aplicación
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(null, { swaggerUrl: '/swagger.json' })
+);
+
 app.use(errorHandler);
 
-// Exporta la aplicación para que pueda ser utilizada en server.js
 export default app;
