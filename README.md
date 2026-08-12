@@ -68,7 +68,7 @@ erDiagram
       string name
       string email
       text bio
-      timestamp created_at
+      timestamptz created_at
     }
 
     POSTS {
@@ -77,7 +77,7 @@ erDiagram
       string title
       text content
       boolean published
-      timestamp created_at
+      timestamptz created_at
     }
 
     COMMENTS {
@@ -85,7 +85,7 @@ erDiagram
       int post_id FK
       int author_id FK
       text content
-      timestamp created_at
+      timestamptz created_at
     }
 ```
 
