@@ -14,27 +14,29 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors()); // Habilita CORS para todas las rutas y orígenes
+// Habilita CORS para todas las rutas y orígenes
+// app.use(cors());
 
-// Configuración de CORS con lista de orígenes permitidos
-// const allowedOrigins = [
-//  'http://localhost:5173',
-//  'http://localhost:3000',
-//  'https://proyectom2caceresdiego-production-74e9.up.railway.app'
-//];
+//* Configuración de CORS con lista de orígenes permitidos
 
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//         return;
-//       }
-//      callback(new Error('No permitido por CORS'));
-//    },
-//    credentials: true
-//  })
-//);
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://proyectom2caceresdiego-production-74e9.up.railway.app'
+];
+
+app.use(
+   cors({
+     origin: (origin, callback) => {
+       if (!origin || allowedOrigins.includes(origin)) {
+         callback(null, true);
+         return;
+       }
+      callback(new Error('No permitido por CORS'));
+   },
+    credentials: true
+  })
+);
 
 app.use('/authors', authorsRouter);
 app.use('/posts', postsRouter);
