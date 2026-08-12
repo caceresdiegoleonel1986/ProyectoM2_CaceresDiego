@@ -23,18 +23,18 @@ app.use(cors()); // Habilita CORS para todas las rutas y orígenes
 //  'https://proyectom2caceresdiego-production-74e9.up.railway.app'
 //];
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-        return;
-      }
-      callback(new Error('No permitido por CORS'));
-    },
-    credentials: true
-  })
-);
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//         return;
+//       }
+//      callback(new Error('No permitido por CORS'));
+//    },
+//    credentials: true
+//  })
+//);
 
 app.use('/authors', authorsRouter);
 app.use('/posts', postsRouter);
