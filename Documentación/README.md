@@ -1,35 +1,32 @@
-# MiniBlog API – Documentación
+# MiniBlog – Documentación
 
-Este documento complementa la guía técnica del proyecto y está orientado a contextualizar el desarrollo, el propósito del backend y su despliegue.
+Este documento complementa la guía técnica del proyecto y explica el contexto general del backend.
 
 ## 📌 Descripción del proyecto
 
-MiniBlog es una API REST desarrollada con Node.js, Express y PostgreSQL para gestionar autores, posts y comentarios. El proyecto fue pensado como una solución sencilla, organizada y funcional para demostrar buenas prácticas en backend, pruebas automatizadas y documentación interactiva.
-
-## 🎯 Objetivo del proyecto
-
-La aplicación permite realizar operaciones CRUD sobre autores, posts y comentarios, ofreciendo una arquitectura simple pero clara para exponer endpoints documentados y mantener una separación lógica entre controladores, servicios y rutas.
+MiniBlog es una API REST desarrollada con Node.js, Express y PostgreSQL para gestionar autores, posts y comentarios. El objetivo del proyecto es demostrar una estructura backend limpia, con validaciones, pruebas y documentación interactiva.
 
 ## 📚 Recursos del repositorio
 
-- [README.md](../README.md) → resumen general del proyecto
-- [Desarrollo/README.md](../Desarrollo/README.md) → guía técnica de instalación y ejecución
-- [Desarrollo/sql](../Desarrollo/sql) → scripts de base de datos
-- [Desarrollo/tests](../Desarrollo/tests) → pruebas automatizadas
+- [README.md](../README.md): resumen general del proyecto
+- [Desarrollo/README.md](../Desarrollo/README.md): guía técnica de instalación y ejecución
+- [Desarrollo/sql](../Desarrollo/sql): scripts de base de datos
+- [Desarrollo/tests](../Desarrollo/tests): pruebas automatizadas
+- [doc AI](./doc%20AI): documentación, notas y material generado con apoyo de IA
 
 ## 🌐 Despliegue
 
-El proyecto fue preparado para su publicación en Railway con PostgreSQL. La documentación Swagger desplegada queda disponible en:
+La API desplegada queda disponible en:
 
 https://proyectom2caceresdiego-production-74e9.up.railway.app/api-docs/
 
-## 🤖 Uso de IA en el proyecto
+## 🤖 Uso de IA
 
-Durante el desarrollo se utilizó inteligencia artificial como apoyo para:
+Durante el desarrollo se utilizó IA como apoyo para:
 
-- proponer estructuras de carpetas y organización del proyecto;
-- generar ejemplos de servicios, controladores y rutas;
-- crear tests básicos con Jest y Supertest;
-- redactar documentación técnica y README.
+- proponer la estructura de carpetas
+- generar ejemplos de rutas, servicios y controladores
+- crear tests básicos con Jest y Supertest
+- redactar documentación técnica
 
-El código fue revisado y adaptado manualmente para asegurar coherencia, claridad y funcionalidad.
+El código fue revisado y adaptado manualmente para asegurar coherencia y funcionalidad.
