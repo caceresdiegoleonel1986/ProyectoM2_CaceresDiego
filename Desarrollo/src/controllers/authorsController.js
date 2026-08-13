@@ -20,7 +20,7 @@ export async function getAuthorById(req, res, next) {
 
     const author = await service.getAuthorById(id);
     if (!author) {
-      return res.status(404).json({ error: 'Author not found' });
+      return res.status(404).json({ error: 'Autor no encontrado' });
     }
     res.json(author);
   } catch (error) {
@@ -54,7 +54,7 @@ export async function updateAuthor(req, res, next) {
 
     const updated = await service.updateAuthor(id, req.body);
     if (!updated) {
-      return res.status(404).json({ error: 'Author not found' });
+      return res.status(404).json({ error: 'Autor no encontrado' });
     }
     res.json(updated);
   } catch (error) {
@@ -72,7 +72,7 @@ export async function deleteAuthor(req, res, next) {
 
     const deleted = await service.deleteAuthor(id);
     if (!deleted) {
-      return res.status(404).json({ error: 'Author not found' });
+      return res.status(404).json({ error: 'Autor no encontrado' });
     }
     res.status(204).end();
   } catch (error) {

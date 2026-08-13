@@ -21,7 +21,7 @@ export async function getCommentsByPost(req, res, next) {
 
     const post = await postService.getPostById(postId);
     if (!post) {
-      return res.status(404).json({ error: 'Post not found' });
+      return res.status(404).json({ error: 'Post no encontrado' });
     }
 
     const comments = await service.getCommentsByPost(postId);

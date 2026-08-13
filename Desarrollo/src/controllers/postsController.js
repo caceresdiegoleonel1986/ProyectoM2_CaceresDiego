@@ -21,7 +21,7 @@ export async function getPostById(req, res, next) {
 
     const post = await service.getPostById(id);
     if (!post) {
-      return res.status(404).json({ error: 'Post not found' });
+      return res.status(404).json({ error: 'Post no encontrado' });
     }
     res.json(post);
   } catch (error) {
@@ -39,7 +39,7 @@ export async function getPostsByAuthor(req, res, next) {
 
     const author = await authorService.getAuthorById(authorId);
     if (!author) {
-      return res.status(404).json({ error: 'Author not found' });
+      return res.status(404).json({ error: 'Autor no encontrado' });
     }
 
     const posts = await service.getPostsByAuthor(authorId);
@@ -87,7 +87,7 @@ export async function updatePost(req, res, next) {
     });
 
     if (!updated) {
-      return res.status(404).json({ error: 'Post not found' });
+      return res.status(404).json({ error: 'Post no encontrado' });
     }
     res.json(updated);
   } catch (error) {
@@ -105,7 +105,7 @@ export async function deletePost(req, res, next) {
 
     const deleted = await service.deletePost(id);
     if (!deleted) {
-      return res.status(404).json({ error: 'Post not found' });
+      return res.status(404).json({ error: 'Post no encontrado' });
     }
     res.status(204).end();
   } catch (error) {
