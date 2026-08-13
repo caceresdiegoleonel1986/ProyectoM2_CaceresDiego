@@ -41,6 +41,6 @@ describe('Authors API Integration Flow', () => {
     // 6. Verificar que ya no existe
     const getDeletedRes = await request(app).get(`/authors/${authorId}`);
     expect(getDeletedRes.statusCode).toBe(404);
-    expect(getDeletedRes.body.error).toBe('Author not found');
+    expect(getDeletedRes.body.error).toBe('Autor no encontrado');
   });
 });

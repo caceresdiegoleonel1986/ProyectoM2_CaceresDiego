@@ -9,7 +9,7 @@ describe('Posts API Integration Flow', () => {
     const res = await request(app).get('/posts/author/999999');
 
     expect(res.statusCode).toBe(404);
-    expect(res.body.error).toBe('Author not found');
+    expect(res.body.error).toBe('Autor no encontrado');
   });
 
   it('🔨 should create an author and a post, update, get and delete it', async () => {

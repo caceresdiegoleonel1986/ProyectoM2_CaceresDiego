@@ -55,7 +55,7 @@ describe('Comments API', () => {
   it('� should return 404 when listing comments for a non-existing post', async () => {
     const res = await request(app).get('/comments/post/999999');
     expect(res.statusCode).toBe(404);
-    expect(res.body.error).toBe('Post not found');
+    expect(res.body.error).toBe('Post no encontrado');
   });
 
   // 6. Actualizar un comentario

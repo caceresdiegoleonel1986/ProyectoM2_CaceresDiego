@@ -70,13 +70,14 @@ describe('Posts API', () => {
   it('🚫 should return 404 for non-existing post (GET)', async () => {
     const res = await request(app).get('/posts/99999');
     expect(res.statusCode).toBe(404);
+    expect(res.body.error).toBe('Post no encontrado');
   });
 
   // 9. Intentar eliminar un post inexistente
   it('🚫 should return 404 when deleting non-existing post', async () => {
     const res = await request(app).delete('/posts/99999');
     expect(res.statusCode).toBe(404);
-    expect(res.body.error).toBe('Post not found');
+    expect(res.body.error).toBe('Post no encontrado');
   });
 
   // 10. Validación: crear post sin título
@@ -154,6 +155,6 @@ describe('Posts API', () => {
       published: true,
     });
     expect(res.statusCode).toBe(404);
-    expect(res.body.error).toBe('Post not found');
+    expect(res.body.error).toBe('Post no encontrado');
   });
 });

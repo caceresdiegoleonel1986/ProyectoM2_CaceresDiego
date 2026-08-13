@@ -52,14 +52,14 @@ describe('Authors API', () => {
   it('🚫 should return 404 for non-existing author (GET)', async () => {
     const res = await request(app).get('/authors/99999');
     expect(res.statusCode).toBe(404);
-    expect(res.body.error).toBe('Author not found');
+    expect(res.body.error).toBe('Autor no encontrado');
   });
 
   // 7. Intentar eliminar un autor inexistente
   it('🚫 should return 404 when deleting non-existing author', async () => {
     const res = await request(app).delete('/authors/99999');
     expect(res.statusCode).toBe(404);
-    expect(res.body.error).toBe('Author not found');
+    expect(res.body.error).toBe('Autor no encontrado');
   });
 
   // 8. Validación: crear autor con email inválido
@@ -71,7 +71,7 @@ describe('Authors API', () => {
     });
     expect(res.statusCode).toBe(400);
     const messages = res.body.errors.map(e => e.msg);
-    expect(messages).toContain('Email must be valid');
+    expect(messages).toContain('El email no es válido');
   });
 
   // 9. Validación: crear autor sin nombre
@@ -82,6 +82,6 @@ describe('Authors API', () => {
     });
     expect(res.statusCode).toBe(400);
     const messages = res.body.errors.map(e => e.msg);
-    expect(messages).toContain('Name is required');
+    expect(messages).toContain('El nombre es obligatorio');
   });
 });
