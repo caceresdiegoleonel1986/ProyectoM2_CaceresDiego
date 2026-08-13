@@ -1,4 +1,5 @@
 import * as service from '../services/postsService.js';
+import * as authorService from '../services/authorsService.js';
 
 // GET /posts
 export async function getPosts(req, res, next) {
@@ -34,6 +35,11 @@ export async function getPostsByAuthor(req, res, next) {
     const authorId = Number(req.params.authorId);
     if (Number.isNaN(authorId)) {
       return res.status(400).json({ error: 'ID inválido' });
+    }
+
+    const author = await authorService.getAuthorById(authorId);
+    if (!author) {
+      return res.status(404).json({ error: 'Author not found' });
     }
 
     const posts = await service.getPostsByAuthor(authorId);

@@ -5,6 +5,13 @@ describe('Posts API Integration Flow', () => {
   let authorId;
   let postId; // 👈 declaramos la variable al inicio
 
+  it('should return 404 when listing posts for a non-existent author', async () => {
+    const res = await request(app).get('/posts/author/999999');
+
+    expect(res.statusCode).toBe(404);
+    expect(res.body.error).toBe('Author not found');
+  });
+
   it('🔨 should create an author and a post, update, get and delete it', async () => {
     // 1. Crear autor con email único
     const authorRes = await request(app).post('/authors').send({
