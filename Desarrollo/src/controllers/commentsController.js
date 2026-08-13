@@ -1,4 +1,5 @@
 import * as service from '../services/commentsService.js';
+import * as postService from '../services/postsService.js';
 
 // GET /comments
 export async function getComments(req, res, next) {
@@ -16,6 +17,11 @@ export async function getCommentsByPost(req, res, next) {
     const postId = Number(req.params.postId);
     if (Number.isNaN(postId)) {
       return res.status(400).json({ error: 'ID inválido' });
+    }
+
+    const post = await postService.getPostById(postId);
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
     }
 
     const comments = await service.getCommentsByPost(postId);
