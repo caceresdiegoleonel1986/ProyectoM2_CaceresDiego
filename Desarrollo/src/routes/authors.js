@@ -9,9 +9,9 @@ const router = Router();
 router.post(
   '/',
   [
-    body('name').notEmpty().withMessage('Name is required'),
-    body('email').isEmail().withMessage('Email must be valid'),
-    body('bio').optional().isString(),
+    body('name').notEmpty().withMessage('El nombre es obligatorio'),
+    body('email').isEmail().withMessage('El email no es válido'),
+    body('bio').optional().isString().withMessage('La bio debe ser texto'),
     validate
   ],
   controller.createAuthor
@@ -21,9 +21,9 @@ router.post(
 router.put(
   '/:id',
   [
-    body('name').optional().notEmpty().withMessage('Name is required'),
-    body('email').optional().isEmail().withMessage('Email must be valid'),
-    body('bio').optional().isString(),
+    body('name').optional().notEmpty().withMessage('El nombre es obligatorio'),
+    body('email').optional().isEmail().withMessage('El email no es válido'),
+    body('bio').optional().isString().withMessage('La bio debe ser texto'),
     validate
   ],
   controller.updateAuthor
