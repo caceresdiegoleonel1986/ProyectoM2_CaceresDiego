@@ -53,16 +53,26 @@ export async function getPostsByAuthor(req, res, next) {
 export async function createPost(req, res, next) {
   try {
     const { title, content, author_id, published } = req.body;
+    const parsedAuthorId = Number(author_id);
+
+    const author = await authorService.getAuthorById(parsedAuthorId);
+    if (!author) {
+      return res.status(404).json({ error: 'Autor no encontrado' });
+    }
+
     const newPost = await service.createPost({
       title,
       content,
-      author_id: Number(author_id),
+      author_id: parsedAuthorId,
       published,
     });
     res.status(201).json(newPost);
   } catch (error) {
     if (error.message.includes('obligatorio')) {
       return res.status(400).json({ error: error.message });
+    }
+    if (error.code === '23503') {
+      return res.status(404).json({ error: 'Recurso relacionado no encontrado' });
     }
     next(error);
   }
@@ -77,6 +87,13 @@ export async function updatePost(req, res, next) {
     }
 
     const { title, content, author_id, published } = req.body;
+
+    if (author_id !== undefined) {
+      const author = await authorService.getAuthorById(Number(author_id));
+      if (!author) {
+        return res.status(404).json({ error: 'Autor no encontrado' });
+      }
+    }
 
     // 👇 si author_id no viene, lo dejamos undefined
     const updated = await service.updatePost(id, {

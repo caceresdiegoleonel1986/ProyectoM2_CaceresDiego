@@ -1,5 +1,6 @@
 import * as service from '../services/commentsService.js';
 import * as postService from '../services/postsService.js';
+import * as authorService from '../services/authorsService.js';
 
 // GET /comments
 export async function getComments(req, res, next) {
@@ -35,15 +36,31 @@ export async function getCommentsByPost(req, res, next) {
 export async function createComment(req, res, next) {
   try {
     const { post_id, author_id, content } = req.body;
+    const parsedPostId = Number(post_id);
+    const parsedAuthorId = Number(author_id);
+
+    const post = await postService.getPostById(parsedPostId);
+    if (!post) {
+      return res.status(404).json({ error: 'Post no encontrado' });
+    }
+
+    const authorExists = await authorService.getAuthorById(parsedAuthorId);
+    if (!authorExists) {
+      return res.status(404).json({ error: 'Autor no encontrado' });
+    }
+
     const newComment = await service.createComment({
-      post_id: Number(post_id),
-      author_id: Number(author_id),
+      post_id: parsedPostId,
+      author_id: parsedAuthorId,
       content,
     });
     res.status(201).json(newComment);
   } catch (error) {
     if (error.message.includes('obligatorio')) {
       return res.status(400).json({ errors: [{ msg: error.message }] });
+    }
+    if (error.code === '23503') {
+      return res.status(404).json({ error: 'Recurso relacionado no encontrado' });
     }
     next(error);
   }
