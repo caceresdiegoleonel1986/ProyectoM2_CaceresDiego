@@ -51,7 +51,27 @@ describe('Comments API', () => {
     expect(Array.isArray(res.body)).toBe(true);
     expect(res.body.length).toBeGreaterThan(0);
   });
+  it('🚫 should return 404 when creating a comment with a non-existing post', async () => {
+    const res = await request(app).post('/comments').send({
+      post_id: 999999,
+      author_id: createdAuthorId,
+      content: 'Comentario para un post inexistente',
+    });
 
+    expect(res.statusCode).toBe(404);
+    expect(res.body.error).toBe('Post no encontrado');
+  });
+
+  it('🚫 should return 404 when creating a comment with a non-existing author', async () => {
+    const res = await request(app).post('/comments').send({
+      post_id: createdPostId,
+      author_id: 999999,
+      content: 'Comentario para un autor inexistente',
+    });
+
+    expect(res.statusCode).toBe(404);
+    expect(res.body.error).toBe('Autor no encontrado');
+  });
   it('� should return 404 when listing comments for a non-existing post', async () => {
     const res = await request(app).get('/comments/post/999999');
     expect(res.statusCode).toBe(404);

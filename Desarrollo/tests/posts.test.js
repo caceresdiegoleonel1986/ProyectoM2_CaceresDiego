@@ -80,6 +80,18 @@ describe('Posts API', () => {
     expect(res.body.error).toBe('Post no encontrado');
   });
 
+  it('🚫 should return 404 when creating a post with a non-existing author', async () => {
+    const res = await request(app).post('/posts').send({
+      title: 'Post con autor inexistente',
+      content: 'Contenido',
+      author_id: 999999,
+      published: true,
+    });
+
+    expect(res.statusCode).toBe(404);
+    expect(res.body.error).toBe('Autor no encontrado');
+  });
+
   // 10. Validación: crear post sin título
   it('⚠️ should return 400 when creating post without title', async () => {
     const res = await request(app).post('/posts').send({
