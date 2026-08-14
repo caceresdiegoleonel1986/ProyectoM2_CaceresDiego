@@ -7,45 +7,50 @@ const outPath = path.join(__dirname, 'swagger.json');
 
 const doc = {
   openapi: '3.0.3',
-  info: { title: 'MiniBlog API', version: '1.0.0', description: 'Documentación OpenAPI para el proyecto MiniBlog. Rutas: /authors, /posts, /comments.' },
+  info: { title: 'MiniBlog API', version: '1.0.0', description: 'Documentación OpenAPI para el proyecto MiniBlog. Se organiza por recursos: autores, posts y comentarios.' },
   servers: [{ url: 'http://localhost:3000', description: 'Servidor local (ejemplo)' }],
+  tags: [
+    { name: 'Authors', description: 'Gestión de autores' },
+    { name: 'Posts', description: 'Gestión de posts y publicaciones' },
+    { name: 'Comments', description: 'Gestión de comentarios por post' }
+  ],
   paths: {
     '/authors': {
-      get: { summary: 'Listar autores', responses: { '200': { description: 'Lista de autores', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Author' } } } } } } },
-      post: { summary: 'Crear autor', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/AuthorCreate' } } } }, responses: { '201': { description: 'Autor creado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Author' } } } }, '400': { description: 'Solicitud inválida' } } }
+      get: { tags: ['Authors'], summary: 'Listar autores', description: 'Devuelve la lista completa de autores.', responses: { '200': { description: 'Lista de autores', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Author' } } } } } } },
+      post: { tags: ['Authors'], summary: 'Crear autor', description: 'Crea un nuevo autor con nombre, email y bio opcional.', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/AuthorCreate' } } } }, responses: { '201': { description: 'Autor creado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Author' } } } }, '400': { description: 'Datos inválidos' } } }
     },
     '/authors/{id}': {
       parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'integer' } }],
-      get: { summary: 'Obtener autor por ID', responses: { '200': { description: 'Autor encontrado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Author' } } } }, '400': { description: 'ID inválido' }, '404': { description: 'No encontrado' } } },
-      put: { summary: 'Actualizar autor', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/AuthorUpdate' } } } }, responses: { '200': { description: 'Autor actualizado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Author' } } } }, '400': { description: 'Solicitud inválida' }, '404': { description: 'No encontrado' } } },
-      delete: { summary: 'Eliminar autor', responses: { '204': { description: 'Eliminado' }, '400': { description: 'ID inválido' }, '404': { description: 'No encontrado' } } }
+      get: { tags: ['Authors'], summary: 'Obtener autor por ID', responses: { '200': { description: 'Autor encontrado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Author' } } } }, '400': { description: 'ID inválido' }, '404': { description: 'Autor no encontrado' } } },
+      put: { tags: ['Authors'], summary: 'Actualizar autor', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/AuthorUpdate' } } } }, responses: { '200': { description: 'Autor actualizado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Author' } } } }, '400': { description: 'Solicitud inválida' }, '404': { description: 'Autor no encontrado' } } },
+      delete: { tags: ['Authors'], summary: 'Eliminar autor', responses: { '204': { description: 'Eliminado' }, '400': { description: 'ID inválido' }, '404': { description: 'Autor no encontrado' } } }
     },
     '/posts': {
-      get: { summary: 'Listar posts', responses: { '200': { description: 'Lista de posts', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Post' } } } } } } },
-      post: { summary: 'Crear post', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/PostCreate' } } } }, responses: { '201': { description: 'Post creado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Post' } } } }, '400': { description: 'Solicitud inválida' } } }
+      get: { tags: ['Posts'], summary: 'Listar posts', description: 'Devuelve todos los posts registrados.', responses: { '200': { description: 'Lista de posts', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Post' } } } } } } },
+      post: { tags: ['Posts'], summary: 'Crear post', description: 'Crea un post asociado a un autor existente.', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/PostCreate' } } } }, responses: { '201': { description: 'Post creado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Post' } } } }, '400': { description: 'Solicitud inválida' }, '404': { description: 'Autor no encontrado' } } }
     },
     '/posts/{id}': {
       parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'integer' } }],
-      get: { summary: 'Obtener post por ID', responses: { '200': { description: 'Post encontrado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Post' } } } }, '400': { description: 'ID inválido' }, '404': { description: 'No encontrado' } } },
-      put: { summary: 'Actualizar post', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/PostUpdate' } } } }, responses: { '200': { description: 'Post actualizado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Post' } } } }, '400': { description: 'Solicitud inválida' }, '404': { description: 'No encontrado' } } },
-      delete: { summary: 'Eliminar post', responses: { '204': { description: 'Eliminado' }, '400': { description: 'ID inválido' }, '404': { description: 'No encontrado' } } }
+      get: { tags: ['Posts'], summary: 'Obtener post por ID', responses: { '200': { description: 'Post encontrado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Post' } } } }, '400': { description: 'ID inválido' }, '404': { description: 'Post no encontrado' } } },
+      put: { tags: ['Posts'], summary: 'Actualizar post', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/PostUpdate' } } } }, responses: { '200': { description: 'Post actualizado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Post' } } } }, '400': { description: 'Solicitud inválida' }, '404': { description: 'Post no encontrado' } } },
+      delete: { tags: ['Posts'], summary: 'Eliminar post', responses: { '204': { description: 'Eliminado' }, '400': { description: 'ID inválido' }, '404': { description: 'Post no encontrado' } } }
     },
     '/posts/author/{authorId}': {
       parameters: [{ name: 'authorId', in: 'path', required: true, schema: { type: 'integer' } }],
-      get: { summary: 'Listar posts por autor', responses: { '200': { description: 'Lista de posts', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Post' } } } } }, '400': { description: 'ID inválido' } } }
+      get: { tags: ['Posts'], summary: 'Listar posts por autor', responses: { '200': { description: 'Lista de posts', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Post' } } } } }, '400': { description: 'ID inválido' }, '404': { description: 'Autor no encontrado' } } }
     },
     '/comments': {
-      get: { summary: 'Listar comentarios', responses: { '200': { description: 'Lista de comentarios', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Comment' } } } } } } },
-      post: { summary: 'Crear comentario', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/CommentCreate' } } } }, responses: { '201': { description: 'Comentario creado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Comment' } } } }, '400': { description: 'Solicitud inválida' } } }
+      get: { tags: ['Comments'], summary: 'Listar comentarios', description: 'Devuelve la lista de comentarios de la base.', responses: { '200': { description: 'Lista de comentarios', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Comment' } } } } } } },
+      post: { tags: ['Comments'], summary: 'Crear comentario', description: 'Crea un comentario asociado a un post y autor existentes.', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/CommentCreate' } } } }, responses: { '201': { description: 'Comentario creado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Comment' } } } }, '400': { description: 'Solicitud inválida' }, '404': { description: 'Post o autor no encontrado' } } }
     },
     '/comments/post/{postId}': {
       parameters: [{ name: 'postId', in: 'path', required: true, schema: { type: 'integer' } }],
-      get: { summary: 'Obtener comentarios por post', responses: { '200': { description: 'Lista de comentarios', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Comment' } } } } }, '400': { description: 'ID inválido' } } }
+      get: { tags: ['Comments'], summary: 'Obtener comentarios por post', responses: { '200': { description: 'Lista de comentarios', content: { 'application/json': { schema: { type: 'array', items: { $ref: '#/components/schemas/Comment' } } } } }, '400': { description: 'ID inválido' }, '404': { description: 'Post no encontrado' } } }
     },
     '/comments/{id}': {
       parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'integer' } }],
-      put: { summary: 'Actualizar comentario', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/CommentUpdate' } } } }, responses: { '200': { description: 'Comentario actualizado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Comment' } } } }, '400': { description: 'Solicitud inválida' }, '404': { description: 'No encontrado' } } },
-      delete: { summary: 'Eliminar comentario', responses: { '204': { description: 'Eliminado' }, '400': { description: 'ID inválido' }, '404': { description: 'No encontrado' } } }
+      put: { tags: ['Comments'], summary: 'Actualizar comentario', requestBody: { required: true, content: { 'application/json': { schema: { $ref: '#/components/schemas/CommentUpdate' } } } }, responses: { '200': { description: 'Comentario actualizado', content: { 'application/json': { schema: { $ref: '#/components/schemas/Comment' } } } }, '400': { description: 'Solicitud inválida' }, '404': { description: 'Comentario no encontrado' } } },
+      delete: { tags: ['Comments'], summary: 'Eliminar comentario', responses: { '204': { description: 'Eliminado' }, '400': { description: 'ID inválido' }, '404': { description: 'Comentario no encontrado' } } }
     }
   },
   components: {
